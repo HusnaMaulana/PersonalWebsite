@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/* your custom styles below */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.parallax-layer {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe\:hidden-when-reduced {
+    display: none !important;
+  }
+}
+
+/* Optional glow flicker for neon/bokeh */
+@keyframes cityGlow {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.city-glow {
+  animation: cityGlow 5s ease-in-out infinite;
+}
+
+/* Smooth text & perf hint for transformed layers */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.parallax-layer {
+  will-change: transform;
+}
+
+/* Container helper */
+.container {
+  inline-size: min(90rem, 92vw);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 2vw, 2rem);
+}
+
+.containernav {
+  inline-size: min(35rem, 90vw);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 2vw, 2rem);
+}
+
+/* Focus styles for keyboard users */
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+
+/* === Marquee utility for skill carousels === */
+@keyframes skills-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.motion-safe\:animate-marquee {
+  animation: skills-marquee var(--marquee-duration, 24s) linear infinite;
+}
+.marquee-paused {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe\:animate-marquee {
+    animation: none;
+  }
+}
+
+/* Optional: shared card look */
+.skill-card {
+  @apply rounded-xl  bg-white/3 drop-shadow-2xl;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* helpful cursors while dragging */
+.drag-surface {
+  cursor: grab;
+}
+.drag-surface:active {
+  cursor: grabbing;
+}
