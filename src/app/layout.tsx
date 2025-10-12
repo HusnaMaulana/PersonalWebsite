@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description:
     "Frontend/Full-stack developer focused on motion, performance, and delightful UX.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
-  metadataBase: new URL("https://your-portfolio-domain.vercel.app"),
+  metadataBase: new URL("https://una.tech"),
   openGraph: {
     type: "website",
     title: "Husna Maulana — Portfolio",
