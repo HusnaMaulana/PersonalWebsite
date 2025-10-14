@@ -16,7 +16,7 @@ export default function HomePage() {
       {/* ABOUT */}
       <ParallaxSection
         id="about"
-        className="mt-[-30svh]" // use svh for mobile bars
+        className="relative -mt-[16dvh] md:-mt-[20dvh]" // gentle overlap with hero
         heading="About"
         subheading={
           <>
@@ -66,7 +66,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mt-5 grid grid-cols-3 gap-4 text-center">
+        <div className="mt-5 grid grid-cols-2  gap-4 text-center">
           <div className="rounded-xl border border-white/10 bg-white/5 p-4">
             <div className="text-3xl font-extrabold">2+</div>
             <div className="mt-1 text-xs text-white/70">Years Experience</div>
@@ -75,10 +75,10 @@ export default function HomePage() {
             <div className="text-3xl font-extrabold">10+</div>
             <div className="mt-1 text-xs text-white/70">Projects & demos</div>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-            <div className="text-3xl font-extrabold">100%</div>
-            <div className="mt-1 text-xs text-white/70">Client focus</div>
-          </div>
+        </div>
+        <div className="mt-5 rounded-xl border border-white/10 bg-white/5 p-4 text-center">
+          <div className="text-3xl font-extrabold">100%</div>
+          <div className="mt-1 text-xs text-white/70">Client focus</div>
         </div>
       </ParallaxSection>
 

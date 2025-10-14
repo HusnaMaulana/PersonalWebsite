@@ -11,12 +11,12 @@ export default function CityPopParallaxScroll() {
     offset: ["start start", "end end"],
   });
 
-  // upward parallax on scroll
   const skyY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const farY = useTransform(scrollYProgress, [0, 1], [0, -110]);
-  const midY = useTransform(scrollYProgress, [0, 1], [0, -220]);
+  const midY = useTransform(scrollYProgress, [0, 1], [0, -240]);
   const nearY = useTransform(scrollYProgress, [0, 1], [0, -190]);
-  const nameY = useTransform(scrollYProgress, [0, 0, 1], [0, -150, 100]);
+  const nameY = useTransform(scrollYProgress, [0, 0, 1], [0, -150, 140]);
+
   return (
     <section
       id="home"
@@ -24,6 +24,7 @@ export default function CityPopParallaxScroll() {
       className="relative h-[120svh] overflow-hidden"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
+        {/* SKY */}
         <motion.div
           aria-hidden="true"
           role="presentation"
@@ -37,35 +38,39 @@ export default function CityPopParallaxScroll() {
           }}
         />
 
+        {/* FAR */}
         <motion.img
           aria-hidden="true"
           role="presentation"
           src="/citypop/citypop_skyline_far.png"
           alt=""
-          className="pointer-events-none absolute bottom-[-8rem] left-1/2 max-w-none -translate-x-1/2 select-none will-change-transform"
+          className="pointer-events-none absolute bottom-[-8rem] left-1/2 z-[1] max-w-none -translate-x-1/2 select-none will-change-transform"
           style={{ y: farY }}
         />
 
+        {/* MID */}
         <motion.img
           aria-hidden="true"
           role="presentation"
           src="/citypop/citypop_street_mid.png"
           alt=""
-          className="pointer-events-none absolute bottom-[-10rem] left-1/2 max-w-none -translate-x-1/2 select-none will-change-transform"
+          className="pointer-events-none absolute bottom-[-10rem] left-1/2 z-[2] max-w-none -translate-x-1/2 select-none will-change-transform"
           style={{ y: midY }}
         />
 
+        {/* NEAR */}
         <motion.img
           aria-hidden="true"
           role="presentation"
           src="/citypop/citypop_palm_near.png"
           alt=""
-          className="pointer-events-none absolute bottom-[-12rem] left-1/2 z-10 max-w-none -translate-x-1/2 select-none will-change-transform"
+          className="pointer-events-none absolute bottom-[-12rem] left-1/2 z-[3] max-w-none -translate-x-1/2 select-none will-change-transform"
           style={{ y: nearY }}
         />
 
+        {/* TITLE / CTAs */}
         <motion.div
-          className="relative z-0 flex h-full items-center justify-center px-4 text-center will-change-transform"
+          className="relative z-[2] flex h-full items-center justify-center px-4 text-center will-change-transform"
           style={{ y: nameY }}
         >
           <div>
@@ -94,10 +99,10 @@ export default function CityPopParallaxScroll() {
           </div>
         </motion.div>
 
-        {/* Vignette: top is transparent to avoid a black seam */}
+        {/* Vignette: fades to page bg to avoid seams */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(5,4,11,0.72)]"
         />
       </div>
     </section>

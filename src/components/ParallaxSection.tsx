@@ -34,7 +34,7 @@ export default function ParallaxSection({
     <section
       id={id}
       ref={ref}
-      className={`${className} relative ${height} flex items-center overflow-hidden`}
+      className={`relative ${height} flex items-center overflow-hidden scroll-mt-[var(--nav-h)] ${className}`}
     >
       {bgUrl && (
         <motion.div

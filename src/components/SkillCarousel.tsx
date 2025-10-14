@@ -6,9 +6,8 @@ type Skill = { label: string; icon?: string };
 
 function SkillCard({ label, icon }: Skill) {
   return (
-    <div className="skill-card transition duration-500 hover:scale-110 h-25 w-35 flex flex-col items-center justify-center gap-3 shrink-0 ">
+    <div className="skill-card transition duration-500 hover:scale-110 h-[6.5rem] w-[8.25rem] md:h-[7rem] md:w-[9rem] flex flex-col items-center justify-center gap-3 shrink-0">
       {icon ? (
-        // use <img> to support simple SVGs in /public/skills/*
         <img
           src={icon}
           alt=""
@@ -35,7 +34,6 @@ function Row({
   reverse?: boolean;
 }) {
   const [paused, setPaused] = useState(false);
-
   const looped = [...items, ...items, ...items, ...items];
 
   return (
@@ -46,13 +44,13 @@ function Row({
     >
       <div
         className={[
-          "flex gap-4 will-change-transform hover: motion-safe:animate-marquee",
+          "flex gap-4 will-change-transform motion-safe:animate-marquee",
           paused ? "marquee-paused" : "",
         ].join(" ")}
         style={
           {
             "--marquee-duration": `${duration}s`,
-            animationDirection: reverse ? "reverse" : "reverse",
+            animationDirection: reverse ? "reverse" : "normal",
           } as React.CSSProperties
         }
       >
@@ -79,7 +77,7 @@ export default function SkillsCarousel() {
     { label: "Next.js", icon: "/skills/nextjs.svg" },
     { label: "Laravel", icon: "/skills/laravel.svg" },
     { label: "Postgres", icon: "/skills/postgresql.svg" },
-    { label: "MySql", icon: "/skills/mysql.svg" },
+    { label: "MySQL", icon: "/skills/mysql.svg" },
     { label: "Postman", icon: "/skills/postman.svg" },
     { label: "Figma", icon: "/skills/figma.svg" },
   ];
@@ -108,7 +106,6 @@ export default function SkillsCarousel() {
           Enhancing collaboration and leadership in projects
         </p>
       </div>
-      {/* reverse for subtle counter-motion */}
       <Row items={soft} duration={30} reverse />
     </section>
   );
