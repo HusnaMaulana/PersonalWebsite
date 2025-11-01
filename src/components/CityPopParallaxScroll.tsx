@@ -1,21 +1,48 @@
+// src/components/CityPopParallaxScroll.tsx
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
 
 export default function CityPopParallaxScroll() {
   const ref = useRef<HTMLDivElement | null>(null);
+  const reduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  const skyY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const farY = useTransform(scrollYProgress, [0, 1], [0, -110]);
-  const midY = useTransform(scrollYProgress, [0, 1], [0, -240]);
-  const nearY = useTransform(scrollYProgress, [0, 1], [0, -190]);
-  const nameY = useTransform(scrollYProgress, [0, 0, 1], [0, -150, 140]);
+  const skyY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? [0, 0] : [0, -60]
+  );
+  const farY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? [0, 0] : [0, -110]
+  );
+  const midY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? [0, 0] : [0, -240]
+  );
+  const nearY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? [0, 0] : [0, -190]
+  );
+  const nameY = useTransform(
+    scrollYProgress,
+    [0, 0, 1],
+    reduce ? [0, 0, 0] : [0, -150, 140]
+  );
 
   return (
     <section
@@ -23,8 +50,8 @@ export default function CityPopParallaxScroll() {
       ref={ref}
       className="relative h-[120svh] overflow-hidden"
     >
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
-        {/* SKY */}
+      <div className="sticky top-0 h-[100svh] overflow-hidden fade-bottom">
+        {/* SKY (div background is cheaper to paint than huge <img>) */}
         <motion.div
           aria-hidden="true"
           role="presentation"
@@ -35,6 +62,7 @@ export default function CityPopParallaxScroll() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             opacity: 0.95,
+            transform: "translateZ(0)", // promote layer
           }}
         />
 
@@ -44,8 +72,10 @@ export default function CityPopParallaxScroll() {
           role="presentation"
           src="/citypop/citypop_skyline_far.png"
           alt=""
+          decoding="async"
+          loading="eager"
           className="pointer-events-none absolute bottom-[-8rem] left-1/2 z-[1] max-w-none -translate-x-1/2 select-none will-change-transform"
-          style={{ y: farY }}
+          style={{ y: farY, transform: "translateZ(0)" }}
         />
 
         {/* MID */}
@@ -54,8 +84,10 @@ export default function CityPopParallaxScroll() {
           role="presentation"
           src="/citypop/citypop_street_mid.png"
           alt=""
+          decoding="async"
+          loading="eager"
           className="pointer-events-none absolute bottom-[-10rem] left-1/2 z-[2] max-w-none -translate-x-1/2 select-none will-change-transform"
-          style={{ y: midY }}
+          style={{ y: midY, transform: "translateZ(0)" }}
         />
 
         {/* NEAR */}
@@ -64,11 +96,13 @@ export default function CityPopParallaxScroll() {
           role="presentation"
           src="/citypop/citypop_palm_near.png"
           alt=""
+          decoding="async"
+          loading="eager"
           className="pointer-events-none absolute bottom-[-12rem] left-1/2 z-[3] max-w-none -translate-x-1/2 select-none will-change-transform"
-          style={{ y: nearY }}
+          style={{ y: nearY, transform: "translateZ(0)" }}
         />
 
-        {/* TITLE / CTAs */}
+        {/* TITLE */}
         <motion.div
           className="relative z-[2] flex h-full items-center justify-center px-4 text-center will-change-transform"
           style={{ y: nameY }}
@@ -99,7 +133,7 @@ export default function CityPopParallaxScroll() {
           </div>
         </motion.div>
 
-        {/* Vignette: fades to page bg to avoid seams */}
+        {/* Vignette → page bg */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(5,4,11,0.72)]"

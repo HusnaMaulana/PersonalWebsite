@@ -1,25 +1,79 @@
+// src/components/SkillCarousel.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import type { IconType } from "react-icons";
 
-type Skill = { label: string; icon?: string };
+// Simple Icons pack (si) covers most tech logos
+import {
+  SiHtml5,
+  SiCss3,
+  SiBootstrap,
+  SiTailwindcss,
+  SiPhp,
+  SiJavascript,
+  SiTypescript,
+  SiPython,
+  SiNodedotjs,
+  SiReact,
+  SiNextdotjs,
+  SiLaravel,
+  SiPostgresql,
+  SiMysql,
+  SiPostman,
+  SiFigma,
+} from "react-icons/si";
 
-function SkillCard({ label, icon }: Skill) {
+// You can mix in others (Md/Tb/Ai/etc.) for soft skills if you like
+import {
+  MdPsychology,
+  MdSchedule,
+  MdGroups,
+  MdAutorenew,
+} from "react-icons/md";
+import { TbBulb } from "react-icons/tb";
+
+type Skill = { label: string; Icon?: IconType };
+
+function SkillCard({ label, Icon }: Skill) {
+  const colors: Record<string, string> = {
+    HTML: "#E44D26",
+    CSS: "#264DE4",
+    Bootstrap: "#7952B3",
+    Tailwind: "#38BDF8",
+    PHP: "#777BB4",
+    JavaScript: "#F7DF1E",
+    TypeScript: "#3178C6",
+    Python: "#3776AB",
+    "Node.js": "#68A063",
+    "React.js": "#61DAFB",
+    "Next.js": "#FFFFFF",
+    Laravel: "#FF2D20",
+    Postgres: "#336791",
+    MySQL: "#00758F",
+    Postman: "#FF6C37",
+    Figma: "#F24E1E",
+  };
+
+  const color = colors[label] ?? "#ffffff";
+
   return (
-    <div className="skill-card transition duration-500 hover:scale-110 h-[6.5rem] w-[8.25rem] md:h-[7rem] md:w-[9rem] flex flex-col items-center justify-center gap-3 shrink-0">
-      {icon ? (
-        <img
-          src={icon}
-          alt=""
-          className="h-9 w-9 md:h-10 md:w-10 select-none"
-          loading="lazy"
+    <div
+      className="skill-card h-[6.5rem] w-[8.25rem] md:h-[7rem] md:w-[9rem] flex shrink-0 flex-col items-center justify-center gap-3 transition duration-500 hover:scale-110"
+      role="listitem"
+    >
+      {Icon ? (
+        <Icon
+          className="h-9 w-9 md:h-10 md:w-10 drop-shadow-md transition-transform duration-300 hover:rotate-6"
+          style={{ color }}
         />
       ) : (
-        <div className="flex h-9 w-9 items-center justify-center rounded-md border border-white/15 text-sm">
+        <div className="flex h-9 w-9 items-center justify-center rounded-md border border-white/15 text-xs md:text-sm">
           {label.slice(0, 2)}
         </div>
       )}
-      <span className="text-xs md:text-sm text-white/85">{label}</span>
+      <span className="text-xs md:text-sm text-white/90">{label}</span>
     </div>
   );
 }
@@ -34,17 +88,33 @@ function Row({
   reverse?: boolean;
 }) {
   const [paused, setPaused] = useState(false);
+  const [reduce, setReduce] = useState(false);
+
+  useEffect(() => {
+    setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
   const looped = [...items, ...items, ...items, ...items];
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/15 p-3 md:p-4"
+      className="relative overflow-hidden rounded-2xl p-3 md:p-4 outline-none focus-visible:ring-2 focus-visible:ring-white/60"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      role="list"
+      aria-label="skills row"
+      tabIndex={0}
     >
+      {/* edge fades */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[rgba(5,4,11,1)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[rgba(5,4,11,1)] to-transparent" />
+
       <div
         className={[
-          "flex gap-4 will-change-transform motion-safe:animate-marquee",
+          "flex gap-4 will-change-transform",
+          reduce ? "" : "motion-safe:animate-marquee",
           paused ? "marquee-paused" : "",
         ].join(" ")}
         style={
@@ -64,30 +134,30 @@ function Row({
 
 export default function SkillsCarousel() {
   const hard: Skill[] = [
-    { label: "HTML", icon: "/skills/html.svg" },
-    { label: "CSS", icon: "/skills/css.svg" },
-    { label: "Bootstrap", icon: "/skills/bootsrap.svg" },
-    { label: "Tailwind", icon: "/skills/tailwind.svg" },
-    { label: "PHP", icon: "/skills/php.svg" },
-    { label: "JavaScript", icon: "/skills/javascript.svg" },
-    { label: "TypeScript", icon: "/skills/typescript.svg" },
-    { label: "Python", icon: "/skills/python.svg" },
-    { label: "Node.js", icon: "/skills/nodejs.svg" },
-    { label: "React.js", icon: "/skills/react.svg" },
-    { label: "Next.js", icon: "/skills/nextjs.svg" },
-    { label: "Laravel", icon: "/skills/laravel.svg" },
-    { label: "Postgres", icon: "/skills/postgresql.svg" },
-    { label: "MySQL", icon: "/skills/mysql.svg" },
-    { label: "Postman", icon: "/skills/postman.svg" },
-    { label: "Figma", icon: "/skills/figma.svg" },
+    { label: "HTML", Icon: SiHtml5 },
+    { label: "CSS", Icon: SiCss3 },
+    { label: "Bootstrap", Icon: SiBootstrap },
+    { label: "Tailwind", Icon: SiTailwindcss },
+    { label: "PHP", Icon: SiPhp },
+    { label: "JavaScript", Icon: SiJavascript },
+    { label: "TypeScript", Icon: SiTypescript },
+    { label: "Python", Icon: SiPython },
+    { label: "Node.js", Icon: SiNodedotjs },
+    { label: "React.js", Icon: SiReact },
+    { label: "Next.js", Icon: SiNextdotjs },
+    { label: "Laravel", Icon: SiLaravel },
+    { label: "Postgres", Icon: SiPostgresql },
+    { label: "MySQL", Icon: SiMysql },
+    { label: "Postman", Icon: SiPostman },
+    { label: "Figma", Icon: SiFigma },
   ];
 
   const soft: Skill[] = [
-    { label: "Problem Solving", icon: "/skills/problem-solving.svg" },
-    { label: "Fast Learner", icon: "/skills/fast-learner.svg" },
-    { label: "Time Management", icon: "/skills/time.svg" },
-    { label: "Teamwork", icon: "/skills/teamwork.svg" },
-    { label: "Adaptability", icon: "/skills/adaptability.svg" },
+    { label: "Problem Solving", Icon: MdPsychology },
+    { label: "Fast Learner", Icon: TbBulb },
+    { label: "Time Management", Icon: MdSchedule },
+    { label: "Teamwork", Icon: MdGroups },
+    { label: "Adaptability", Icon: MdAutorenew },
   ];
 
   return (

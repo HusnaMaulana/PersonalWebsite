@@ -1,10 +1,15 @@
 import Navbar from "@/components/Navbar";
 import CityPopParallaxScroll from "@/components/CityPopParallaxScroll";
 import ParallaxSection from "@/components/ParallaxSection";
-import ProjectCard from "@/components/ProjectCard";
 import SkillsCarousel from "@/components/SkillCarousel";
+import ProjectsCarousel from "@/components/ProjectsCarousel";
+import ContactForm from "@/components/ContactForm";
 import Image from "next/image";
 import { projects } from "@/data/project";
+import { FaLinkedinIn, FaGithub, FaInstagram } from "react-icons/fa6";
+
+const cardClass =
+  "rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm hover:border-white/20 transition";
 
 export default function HomePage() {
   return (
@@ -16,7 +21,7 @@ export default function HomePage() {
       {/* ABOUT */}
       <ParallaxSection
         id="about"
-        className="relative -mt-[16dvh] md:-mt-[20dvh]" // gentle overlap with hero
+        className="relative -mt-[16dvh] md:-mt-[20dvh]"
         heading="About"
         subheading={
           <>
@@ -98,11 +103,7 @@ export default function HomePage() {
         subheading="Selected work."
         height="min-h-[95svh]"
       >
-        <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} p={p} />
-          ))}
-        </div>
+        <ProjectsCarousel projects={projects} />
       </ParallaxSection>
 
       {/* CONTACT */}
@@ -110,45 +111,95 @@ export default function HomePage() {
         id="contact"
         heading="Contact"
         subheading="Open to collabs & roles"
-        height="min-h-[50svh]"
+        height="min-h-[70svh]"
       >
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <h3 className="text-lg font-semibold">Get in touch</h3>
-            <p className="mt-2 text-white/80">
-              Prefer email? I&apos;ll reply within a day.
-            </p>
+        <div className="grid gap-10 md:gap-16">
+          {/* Top Row: Info + Form */}
+          <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-8 text-white">
+            {/* LEFT COLUMN (info) */}
+            <div className="space-y-8">
+              {/* email block */}
+              <div className="flex items-start gap-3">
+                <div className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded  text-white/80 text-sm leading-none">
+                  ✉
+                </div>
+                <div>
+                  <div className="text-lg font-semibold text-white">Email</div>
+                  <a
+                    href="mailto:uns200345@gmail.com"
+                    className="text-white/70 hover:text-white break-all"
+                  >
+                    uns200345@gmail.com
+                  </a>
+                </div>
+              </div>
 
-            <a
-              href="mailto:you@example.com"
-              className="mt-4 inline-block rounded-xl bg-white px-4 py-2 font-medium text-black"
-            >
-              you@example.com
-            </a>
+              {/* location block */}
+              <div className="flex items-start gap-3">
+                <div className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded  text-white/80 text-sm leading-none">
+                  📍
+                </div>
+                <div>
+                  <div className="text-lg font-semibold text-white">
+                    Location
+                  </div>
+                  <div className="text-white/70">Bandung</div>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN (form) */}
+            <ContactForm />
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <h3 className="text-lg font-semibold">Social</h3>
-            <ul className="mt-3 space-y-2 text-white/85">
-              {[
-                ["GitHub", "#"],
-                ["LinkedIn", "#"],
-                ["X / Twitter", "#"],
-                ["Instagram", "#"],
-              ].map(([label, href]) => (
-                <li key={label}>
-                  <a
-                    className="underline-offset-4 hover:underline"
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Open ${label} in new tab`}
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          {/* Social icons row */}
+          <div className="flex justify-center gap-3 ">
+            {[
+              {
+                href: "https://.linkedin.com/in/husna-maulana",
+                label: "LinkedIn",
+                Icon: FaLinkedinIn,
+                color: "#0A66C2",
+              },
+              {
+                href: "https://github.com/HusnaMaulana",
+                label: "GitHub",
+                Icon: FaGithub,
+                color: "#ffffff",
+              },
+              {
+                href: "https://www.instagram.com/una_45",
+                label: "Instagram",
+                Icon: FaInstagram,
+                color: "#E1306C",
+              },
+            ].map(({ href, label, Icon, color }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="group relative flex h-12 w-12 items-center justify-center rounded-full mb-5
+                 transition-all duration-300 
+                 hover:scale-110 hover:border-transparent hover:shadow-[0_0_20px_var(--glow-color)]"
+                style={
+                  {
+                    "--glow-color": color,
+                  } as React.CSSProperties
+                }
+              >
+                <div
+                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 
+                   bg-gradient-to-tr from-transparent via-[color:var(--glow-color)]/20 to-transparent 
+                   blur-md transition-opacity duration-500"
+                />
+                <Icon
+                  className="relative text-xl transition-transform duration-300 group-hover:scale-110"
+                  style={{ color }}
+                />
+              </a>
+            ))}
           </div>
         </div>
       </ParallaxSection>

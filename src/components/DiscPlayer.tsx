@@ -103,27 +103,22 @@ export default function DiscPlayer({
   return (
     <>
       <audio ref={audioRef} preload="metadata" playsInline />
-
       <button
         onClick={toggle}
         aria-label={isPlaying ? "Pause" : "Play"}
         aria-pressed={isPlaying}
         title={isPlaying ? "Click to pause" : "Click to play"}
         className={[
-          "fixed z-40",
-          // placement (bottom-left). To put it bottom-right on mobile, swap to: 'right-3 md:left-6 left-auto'
-          "left-3 md:left-6",
-          // safe bottom spacing + desktop bump
+          "fixed z-40 left-3 md:left-6",
           "bottom-3 md:bottom-6",
           "rounded-full hover:bg-black/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
-          // subtler ring on mobile
           isPlaying
             ? "ring-2 md:ring-2 ring-fuchsia-400/60"
             : "ring-1 md:ring-1 ring-white/15",
           "transition",
+          "p-2", // larger hit area without changing disc size
           className,
         ].join(" ")}
-        // IMPORTANT: offset above safe area (don’t pad the button)
         style={{ bottom: "calc(env(safe-area-inset-bottom) + 30px)" }}
       >
         <div className="relative" style={{ width: diameter, height: diameter }}>

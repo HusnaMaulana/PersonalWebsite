@@ -1,6 +1,7 @@
+// src/components/ParallaxSection.tsx
 "use client";
 
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useId } from "react";
 import { motion } from "framer-motion";
 import { useParallax } from "./useParallax";
 
@@ -12,6 +13,7 @@ type Props = {
   children?: ReactNode;
   height?: string;
   className?: string;
+  ariaLabelledby?: string;
 };
 
 export default function ParallaxSection({
@@ -22,9 +24,12 @@ export default function ParallaxSection({
   children,
   className = "",
   height = "min-h-[100svh]",
+  ariaLabelledby,
 }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const targetRef = ref as React.RefObject<HTMLElement>;
+  const uid = useId();
+  const titleId = ariaLabelledby || `${id ?? uid}-h`;
 
   const bgY = useParallax(targetRef, { input: [0, 1], output: [-60, 60] });
   const midY = useParallax(targetRef, { input: [0, 1], output: [-30, 30] });
@@ -34,6 +39,7 @@ export default function ParallaxSection({
     <section
       id={id}
       ref={ref}
+      aria-labelledby={titleId}
       className={`relative ${height} flex items-center overflow-hidden scroll-mt-[var(--nav-h)] ${className}`}
     >
       {bgUrl && (
@@ -52,6 +58,7 @@ export default function ParallaxSection({
         />
       )}
 
+      {/* Ambient blobs */}
       <motion.div
         aria-hidden="true"
         role="presentation"
@@ -62,6 +69,7 @@ export default function ParallaxSection({
         <div className="absolute bottom-10 left-10 h-64 w-64 rounded-full bg-cyan-500/10 blur-3xl" />
       </motion.div>
 
+      {/* Content */}
       <motion.div
         className="container relative z-10"
         style={{ y: fgY }}
@@ -70,7 +78,10 @@ export default function ParallaxSection({
         viewport={{ margin: "-10% 0px -10% 0px", once: true }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <h2 className="text-4xl font-bold tracking-tight md:text-6xl">
+        <h2
+          id={titleId}
+          className="text-4xl font-bold tracking-tight md:text-6xl"
+        >
           {heading}
         </h2>
         {subheading && (
@@ -80,6 +91,12 @@ export default function ParallaxSection({
         )}
         {children && <div className="mt-8">{children}</div>}
       </motion.div>
+
+      {/* Bottom fade into page background (no seams) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[rgba(5,4,11,0.9)]"
+      />
     </section>
   );
 }

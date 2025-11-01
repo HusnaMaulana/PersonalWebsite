@@ -127,9 +127,8 @@ html.lenis {
    Cards & utilities
    ========================= */
 .skill-card {
-  @apply rounded-xl bg-white/3 drop-shadow-2xl;
+  @apply rounded-xl bg-white/[0.03] drop-shadow-2xl;
 }
-
 /* Hide scrollbars (use sparingly) */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -145,4 +144,36 @@ html.lenis {
 }
 .drag-surface:active {
   cursor: grabbing;
+}
+
+.fade-bottom {
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+.carousel-fade::before,
+.carousel-fade::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  width: 40px;
+  pointer-events: none;
+}
+.carousel-fade::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(5, 4, 11, 1), transparent);
+}
+.carousel-fade::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(5, 4, 11, 1), transparent);
+}
+
+.contact-input {
+  @apply w-full rounded-lg border border-white/20 bg-white/[0.03] px-4 py-3
+         text-white/90 placeholder-white/40
+         outline-none ring-0
+         focus:border-white/40 focus:bg-white/[0.06]
+         transition;
+  /* prevent weird iOS zoom on focus */
+  font-size: 16px;
 }

@@ -1,11 +1,37 @@
+// src/components/ProjectCard.tsx
 "use client";
 
 import Image from "next/image";
 import type { Project } from "@/data/project";
 
-export default function ProjectCard({ p }: { p: Project }) {
+export default function ProjectCard({
+  p,
+  onOpen,
+}: {
+  p: Project;
+  onOpen?: (p: Project) => void;
+}) {
+  const open = () => onOpen?.(p);
+
   return (
-    <article className="group transition rounded-2xl border border-white/10 bg-white/5 p-4 hover:border-white/25">
+    <article
+      className="group rounded-2xl  bg-white/5 p-4 transition hover:border-white/25"
+      role={onOpen ? "button" : undefined}
+      tabIndex={onOpen ? 0 : -1}
+      aria-label={onOpen ? `Open details for ${p.title}` : undefined}
+      onClick={(e) => {
+        // allow clicks on <a> to behave normally (don't open modal)
+        const a = (e.target as HTMLElement).closest("a");
+        if (a) return;
+        open();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && onOpen) {
+          e.preventDefault();
+          open();
+        }
+      }}
+    >
       <div className="relative aspect-video overflow-hidden rounded-xl bg-black/30">
         <Image
           src={p.image ?? "/projects/fallback.jpg"}
@@ -36,7 +62,7 @@ export default function ProjectCard({ p }: { p: Project }) {
           {p.tech.map((t) => (
             <li
               key={t}
-              className="rounded-md bg-white/10 px-2 py-1 text-xs text-white/80"
+              className="rounded-md bg-white/[0.10] px-2 py-1 text-xs text-white/80"
             >
               {t}
             </li>

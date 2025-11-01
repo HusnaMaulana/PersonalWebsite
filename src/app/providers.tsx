@@ -1,3 +1,4 @@
+// src/app/providers.tsx
 "use client";
 
 import { ReactNode, useEffect } from "react";
@@ -16,14 +17,36 @@ export default function Providers({ children }: { children: ReactNode }) {
       smoothWheel: true,
     });
 
-    function raf(time: number) {
+    // drive RAF
+    let rafId = requestAnimationFrame(function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    const id = requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
+    });
+
+    // intercept in-page anchors
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement).closest(
+        "a[href^='#']"
+      ) as HTMLAnchorElement | null;
+      if (!a) return;
+      const id = a.getAttribute("href")!.slice(1);
+      const el = document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el, {
+        offset:
+          -parseInt(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--nav-h"
+            )
+          ) || 0,
+      });
+    };
+    document.addEventListener("click", onClick);
 
     return () => {
-      cancelAnimationFrame(id);
+      cancelAnimationFrame(rafId);
+      document.removeEventListener("click", onClick);
       lenis.destroy?.();
     };
   }, []);
