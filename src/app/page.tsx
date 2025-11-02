@@ -156,7 +156,7 @@ export default function HomePage() {
           <div className="flex justify-center gap-3 ">
             {[
               {
-                href: "https://.linkedin.com/in/husna-maulana",
+                href: "https://linkedin.com/in/husna-maulana",
                 label: "LinkedIn",
                 Icon: FaLinkedinIn,
                 color: "#0A66C2",
