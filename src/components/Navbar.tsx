@@ -23,7 +23,6 @@ export default function Navbar() {
 	const observersRef = useRef<IntersectionObserver | null>(null);
 	const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
 
-	// Scroll depth + bottom-of-page override
 	useEffect(() => {
 		function handleScroll() {
 			const y = window.scrollY;
@@ -41,7 +40,6 @@ export default function Navbar() {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// Intersection-based active detection
 	useEffect(() => {
 		if (observersRef.current) observersRef.current.disconnect();
 
@@ -85,7 +83,6 @@ export default function Navbar() {
 		return () => observer.disconnect();
 	}, []);
 
-	// Measure active link (runs on mount and whenever `active` changes)
 	useLayoutEffect(() => {
 		const el = linkRefs.current[active];
 		if (!el) return;
@@ -109,10 +106,9 @@ export default function Navbar() {
 						? "bg-black/40 border-white/20 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
 						: "bg-black/20 border-white/10",
 				].join(" ")}>
-				{/* Animated tracking pill */}
 				{highlightRect && (
 					<motion.div
-						className="pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-full bg-white/75 shadow-gray-900/20 "
+						className="pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-full bg-white shadow-gray-900/20 "
 						initial={false}
 						animate={{
 							width: highlightRect.width,

@@ -55,14 +55,13 @@ export default function CityPopParallaxScroll() {
 			ref={ref}
 			className="relative h-[120svh] overflow-hidden">
 			<div className="sticky top-0 h-[100svh] overflow-hidden fade-bottom">
-				{/* SKY (CSS background, now from Blob) */}
 				<motion.div
 					aria-hidden="true"
 					role="presentation"
 					className="absolute inset-x-0 -inset-y-32 will-change-transform"
 					style={{
 						y: skyY,
-						backgroundImage: `url("${blob("/citypop/citypop_sun_sky.png")}")`,
+						backgroundImage: `url("${blob("/citypop/citypop_sun_sky.webp")}")`,
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 						opacity: 0.95,
@@ -74,7 +73,7 @@ export default function CityPopParallaxScroll() {
 				<motion.img
 					aria-hidden="true"
 					role="presentation"
-					src={blob("/citypop/citypop_skyline_far.png")}
+					src={blob("/citypop/citypop_skyline_far.webp")}
 					alt=""
 					decoding="async"
 					loading="eager"
@@ -86,7 +85,7 @@ export default function CityPopParallaxScroll() {
 				<motion.img
 					aria-hidden="true"
 					role="presentation"
-					src={blob("/citypop/citypop_street_mid.png")}
+					src={blob("/citypop/citypop_street_mid.webp")}
 					alt=""
 					decoding="async"
 					loading="eager"
@@ -98,7 +97,7 @@ export default function CityPopParallaxScroll() {
 				<motion.img
 					aria-hidden="true"
 					role="presentation"
-					src={blob("/citypop/citypop_palm_near.png")}
+					src={blob("/citypop/citypop_palm_near.webp")}
 					alt=""
 					decoding="async"
 					loading="eager"
