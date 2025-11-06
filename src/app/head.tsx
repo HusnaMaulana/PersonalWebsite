@@ -1,12 +1,24 @@
-// src/app/head.tsx
+import { blob } from "@/lib/blob";
+
 export default function Head() {
-  return (
-    <>
-      {/* Preload the heaviest hero layers */}
-      <link rel="preload" as="image" href="/citypop/citypop_skyline_far.png" />
-      <link rel="preload" as="image" href="/citypop/citypop_street_mid.png" />
-      <link rel="preload" as="image" href="/citypop/citypop_palm_near.png" />
-      <link rel="preload" as="audio" href="/audio/BGM.mp3" />
-    </>
-  );
+	return (
+		<>
+			<link
+				rel="preload"
+				as="image"
+				href={blob("/citypop/citypop_skyline_far.png")}
+			/>
+			<link
+				rel="preload"
+				as="image"
+				href={blob("/citypop/citypop_street_mid.png")}
+			/>
+			<link
+				rel="preload"
+				as="image"
+				href={blob("/citypop/citypop_palm_near.png")}
+			/>
+			<link rel="preload" as="audio" href="/audio/BGM.mp3" />
+		</>
+	);
 }

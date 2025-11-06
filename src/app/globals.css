@@ -4,89 +4,89 @@
    Base & page background
    ========================= */
 :root {
-  /* App-wide bg to avoid dark “seams” between sections */
-  --page-bg: radial-gradient(
-    120% 120% at 50% 0%,
-    #0b0713 0%,
-    #07050d 55%,
-    #05040b 100%
-  );
+	/* App-wide bg to avoid dark “seams” between sections */
+	--page-bg: radial-gradient(
+		120% 120% at 50% 0%,
+		#0b0713 0%,
+		#07050d 55%,
+		#05040b 100%
+	);
 
-  /* Sticky navbar height for anchor offsets; tweak if your Navbar height changes */
-  --nav-h: 64px;
+	/* Sticky navbar height for anchor offsets; tweak if your Navbar height changes */
+	--nav-h: 64px;
 }
 @media (min-width: 768px) {
-  :root {
-    --nav-h: 80px;
-  }
+	:root {
+		--nav-h: 80px;
+	}
 }
 
 html,
 body {
-  background: var(--page-bg) fixed;
-  min-height: 100%;
+	background: var(--page-bg) fixed;
+	min-height: 100%;
 }
 
 html {
-  /* Smooth text */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	/* Smooth text */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 
-  /* Ensure in-page links (#about, etc.) land below sticky nav */
-  scroll-padding-top: var(--nav-h);
+	/* Ensure in-page links (#about, etc.) land below sticky nav */
+	scroll-padding-top: var(--nav-h);
 }
 
 :focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.7);
-  outline-offset: 2px;
+	outline: 2px solid rgba(255, 255, 255, 0.7);
+	outline-offset: 2px;
 }
 
 /* =========================
    Lenis helpers
    ========================= */
 html.lenis {
-  height: auto;
+	height: auto;
 }
 .lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+	scroll-behavior: auto !important;
 }
 .lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+	overscroll-behavior: contain;
 }
 
 /* =========================
    Parallax perf hint
    ========================= */
 .parallax-layer {
-  will-change: transform;
+	will-change: transform;
 }
 
 /* =========================
    Motion-reduction helpers
    ========================= */
 @media (prefers-reduced-motion: reduce) {
-  .motion-safe\:hidden-when-reduced {
-    display: none !important;
-  }
-  .motion-safe\:animate-marquee {
-    animation: none;
-  }
+	.motion-safe\:hidden-when-reduced {
+		display: none !important;
+	}
+	.motion-safe\:animate-marquee {
+		animation: none;
+	}
 }
 
 /* =========================
    Optional glow for neon/bokeh
    ========================= */
 @keyframes cityGlow {
-  0%,
-  100% {
-    opacity: 0.85;
-  }
-  50% {
-    opacity: 1;
-  }
+	0%,
+	100% {
+		opacity: 0.85;
+	}
+	50% {
+		opacity: 1;
+	}
 }
 .city-glow {
-  animation: cityGlow 5s ease-in-out infinite;
+	animation: cityGlow 5s ease-in-out infinite;
 }
 
 /* =========================
@@ -96,84 +96,93 @@ html.lenis {
 */
 .shell,
 .container {
-  inline-size: min(90rem, 92vw);
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 2vw, 2rem);
+	inline-size: min(90rem, 92vw);
+	margin-inline: auto;
+	padding-inline: clamp(1rem, 2vw, 2rem);
 }
 
 /* A narrower container variant often handy for navs */
 .containernav {
-  inline-size: min(35rem, 90vw);
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 2vw, 2rem);
+	inline-size: min(35rem, 90vw);
+	margin-inline: auto;
+	padding-inline: clamp(1rem, 2vw, 2rem);
 }
 
 /* =========================
    Skills marquee
    ========================= */
 @keyframes skills-marquee {
-  to {
-    transform: translateX(-50%);
-  }
+	to {
+		transform: translateX(-50%);
+	}
 }
 .motion-safe\:animate-marquee {
-  animation: skills-marquee var(--marquee-duration, 24s) linear infinite;
+	animation: skills-marquee var(--marquee-duration, 24s) linear infinite;
 }
 .marquee-paused {
-  animation-play-state: paused;
+	animation-play-state: paused;
 }
 
 /* =========================
    Cards & utilities
    ========================= */
 .skill-card {
-  @apply rounded-xl bg-white/[0.03] drop-shadow-2xl;
+	@apply rounded-xl bg-white/[0.03] drop-shadow-2xl;
 }
 /* Hide scrollbars (use sparingly) */
 .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 /* Helpful cursors while dragging */
 .drag-surface {
-  cursor: grab;
+	cursor: grab;
 }
 .drag-surface:active {
-  cursor: grabbing;
+	cursor: grabbing;
 }
 
 .fade-bottom {
-  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+	mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+	-webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
 .carousel-fade::before,
 .carousel-fade::after {
-  content: "";
-  position: absolute;
-  inset-block: 0;
-  width: 40px;
-  pointer-events: none;
+	content: "";
+	position: absolute;
+	inset-block: 0;
+	width: 40px;
+	pointer-events: none;
 }
 .carousel-fade::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(5, 4, 11, 1), transparent);
+	left: 0;
+	background: linear-gradient(to right, rgba(5, 4, 11, 1), transparent);
 }
 .carousel-fade::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(5, 4, 11, 1), transparent);
+	right: 0;
+	background: linear-gradient(to left, rgba(5, 4, 11, 1), transparent);
 }
 
 .contact-input {
-  @apply w-full rounded-lg border border-white/20 bg-white/[0.03] px-4 py-3
+	@apply w-full rounded-lg border border-white/20 bg-white/[0.03] px-4 py-3
          text-white/90 placeholder-white/40
          outline-none ring-0
          focus:border-white/40 focus:bg-white/[0.06]
          transition;
-  /* prevent weird iOS zoom on focus */
-  font-size: 16px;
+	/* prevent weird iOS zoom on focus */
+	font-size: 16px;
+}
+
+/* Hide scrollbar while keeping scroll functional */
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+.no-scrollbar {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
