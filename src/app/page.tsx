@@ -88,6 +88,7 @@ export default function HomePage() {
 				id="skills"
 				heading="Skills"
 				subheading="Hard & Soft skills"
+				className="mt-8"
 				height="min-h-[90svh]">
 				<SkillsCarousel />
 			</ParallaxSection>
