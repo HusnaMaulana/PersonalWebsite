@@ -30,7 +30,7 @@ export const projects: Project[] = [
 			blob("/projects/CvMaker/CvMaker_4.png"),
 		],
 		summary:
-			"This is a personal portfolio website that functions as a digital CV to professionally showcase your qualifications and projects. It also features a Content Management System (CMS) on the backend, allowing you to easily manage and update all content, such as your work history or new projects, without the need for any code changes.",
+			"A personal portfolio website built with a backend CMS for easy content management. This system allows the owner to easily update sections like work history, education, skills and projects.",
 	},
 	{
 		slug: "stumble-fall-guy",
@@ -38,12 +38,28 @@ export const projects: Project[] = [
 		year: "2023",
 		role: "Game Developer",
 		tech: ["Unity", "C#", "Blender 3D"],
-		image: blob("/projects/Stumble/Stumbel_Fall_Guys.png"),
+		image: blob("/projects/Stumble/stumble-1.webp"),
 		images: [
-			blob("/projects/Stumble/Stumbel_Fall_Guys.png"),
-			blob("/projects/Stumble/stumble-1.png"),
-			blob("/projects/Stumble/stumble-2.png"),
+			blob("/projects/Stumble/stumble-1.webp"),
+			blob("/projects/Stumble/stumble-2.webp"),
+			blob("/projects/Stumble/stumble-3.webp"),
 		],
-		summary: "3D platformer game inspired by Fall Guys and Stumble Guys.",
+		summary:
+			"A 3D platformer game inspired by the vibrant, trap-filled of Fall Guys and Stumble Guys, challenging players through obstacle.",
+	},
+	{
+		slug: "disucussion-forum",
+		title: "Discussion Forum",
+		year: "2024",
+		role: "Fullstack Developer",
+		tech: ["React", "Vite", "Typescripts", "postgrasQL", "Express.js"],
+		image: blob("/projects/ForumDiskusi/forumDiskusi-1.webp"),
+		images: [
+			blob("/projects/ForumDiskusi/forumDiskusi-1.webp"),
+			blob("/projects/ForumDiskusi/forumDiskusi-2.webp"),
+			blob("/projects/ForumDiskusi/forumDiskusi-3.webp"),
+		],
+		summary:
+			"A discussion forum for an LMS web application, designed for asking questions and sharing knowledge.",
 	},
 ];

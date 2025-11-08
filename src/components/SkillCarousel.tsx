@@ -1,4 +1,3 @@
-// src/components/SkillCarousel.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -92,7 +91,6 @@ function Row({
 		setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 	}, []);
 
-	// Handle grab-scroll behavior
 	useEffect(() => {
 		const el = containerRef.current;
 		if (!el) return;
@@ -146,7 +144,6 @@ function Row({
 			role="list"
 			aria-label="skills row"
 			tabIndex={0}>
-			{/* edge fades */}
 			<div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[rgba(5,4,11,1)] to-transparent" />
 			<div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[rgba(5,4,11,1)] to-transparent" />
 
