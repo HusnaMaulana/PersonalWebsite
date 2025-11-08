@@ -1,7 +1,7 @@
 // src/components/CityPopParallaxScroll.tsx
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
 	motion,
 	useScroll,
@@ -15,38 +15,52 @@ export default function CityPopParallaxScroll() {
 	const ref = useRef<HTMLDivElement | null>(null);
 	const reduce = useReducedMotion();
 
+	const [isMobile, setIsMobile] = useState(false);
+	useEffect(() => {
+		const mq = window.matchMedia("(max-width: 768px)");
+		const update = () => setIsMobile(mq.matches);
+		update();
+		mq.addEventListener("change", update);
+		return () => mq.removeEventListener("change", update);
+	}, []);
+
 	const { scrollYProgress } = useScroll({
 		target: ref,
 		offset: ["start start", "end end"],
 	});
 
-	// Smooth the scroll progress with a spring
 	const smoothProgress = useSpring(scrollYProgress, {
 		stiffness: 90, // lower = softer
-		damping: 22, // higher = less overshoot
+		damping: 15, // higher = less overshoot
 		mass: 0.4,
 	});
 
-	const skyY = useTransform(smoothProgress, [0, 1], reduce ? [0, 0] : [0, -60]);
+	const factor = reduce || isMobile ? 0.3 : 1;
+
+	const skyY = useTransform(
+		smoothProgress,
+		[0, 1],
+		reduce ? [0, 0] : [0, -60 * factor]
+	);
 	const farY = useTransform(
 		smoothProgress,
 		[0, 1],
-		reduce ? [0, 0] : [0, -110]
+		reduce ? [0, 0] : [0, -110 * factor]
 	);
 	const midY = useTransform(
 		smoothProgress,
 		[0, 1],
-		reduce ? [0, 0] : [0, -240]
+		reduce ? [0, 0] : [0, -240 * factor]
 	);
 	const nearY = useTransform(
 		smoothProgress,
 		[0, 1],
-		reduce ? [0, 0] : [0, -190]
+		reduce ? [0, 0] : [0, -190 * factor]
 	);
 	const nameY = useTransform(
 		smoothProgress,
 		[0, 0, 1],
-		reduce ? [0, 0, 0] : [0, -150, 140]
+		reduce ? [0, 0, 0] : [0, -150 * factor, 140 * factor]
 	);
 
 	return (

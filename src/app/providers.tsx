@@ -8,7 +8,12 @@ export default function Providers({ children }: { children: ReactNode }) {
 		const prefersReduced = window.matchMedia(
 			"(prefers-reduced-motion: reduce)"
 		).matches;
-		if (prefersReduced) return;
+
+		const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
+
+		if (prefersReduced || isSmallScreen) {
+			return;
+		}
 
 		const lenis = new Lenis({
 			duration: 1.1,
@@ -39,6 +44,7 @@ export default function Providers({ children }: { children: ReactNode }) {
 					) || 0,
 			});
 		};
+
 		document.addEventListener("click", onClick);
 
 		return () => {
