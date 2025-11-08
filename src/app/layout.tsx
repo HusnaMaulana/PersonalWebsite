@@ -11,7 +11,7 @@ const inter = Inter({
 	variable: "--font-inter",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "husnamaulana.me";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://husnamaulana.me";
 
 export const metadata: Metadata = {
 	metadataBase: new URL(SITE_URL),
@@ -29,6 +29,11 @@ export const metadata: Metadata = {
 		url: "/",
 		images: ["/og.jpg"],
 	},
+	twitter: { card: "summary_large_image", images: ["/og.jpg"] },
+	themeColor: [
+		{ media: "(prefers-color-scheme: light)", color: "#ffffff" },
+		{ media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+	],
 };
 
 export default function RootLayout({
