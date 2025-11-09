@@ -133,36 +133,38 @@ function Row({
 	const looped = [...items, ...items, ...items, ...items];
 
 	return (
-		<div
-			ref={containerRef}
-			className="relative overflow-x-auto overflow-y-hidden rounded-2xl p-3 md:p-4 outline-none focus-visible:ring-2 focus-visible:ring-white/60 no-scrollbar cursor-grab select-none"
-			onMouseEnter={() => setPaused(true)}
-			onMouseLeave={() => setPaused(false)}
-			onFocus={() => setPaused(true)}
-			onBlur={() => setPaused(false)}
-			onScroll={() => setPaused(true)}
-			role="list"
-			aria-label="skills row"
-			tabIndex={0}>
+		<div className="relative" role="list" aria-label="skills row">
+			<div
+				ref={containerRef}
+				className="overflow-x-auto overflow-y-hidden rounded-2xl p-3 md:p-4 
+                   outline-none focus-visible:ring-2 focus-visible:ring-white/60 
+                   no-scrollbar cursor-grab select-none"
+				onMouseEnter={() => setPaused(true)}
+				onMouseLeave={() => setPaused(false)}
+				onFocus={() => setPaused(true)}
+				onBlur={() => setPaused(false)}
+				onScroll={() => setPaused(true)}
+				tabIndex={0}>
+				<div
+					className={[
+						"flex gap-4 will-change-transform",
+						reduce ? "" : "motion-safe:animate-marquee",
+						paused ? "marquee-paused" : "",
+					].join(" ")}
+					style={
+						{
+							"--marquee-duration": `${duration}s`,
+							animationDirection: reverse ? "reverse" : "normal",
+						} as React.CSSProperties
+					}>
+					{looped.map((s, i) => (
+						<SkillCard key={`${s.label}-${i}`} {...s} />
+					))}
+				</div>
+			</div>
+
 			<div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[rgba(5,4,11,1)] to-transparent" />
 			<div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[rgba(5,4,11,1)] to-transparent" />
-
-			<div
-				className={[
-					"flex gap-4 will-change-transform",
-					reduce ? "" : "motion-safe:animate-marquee",
-					paused ? "marquee-paused" : "",
-				].join(" ")}
-				style={
-					{
-						"--marquee-duration": `${duration}s`,
-						animationDirection: reverse ? "reverse" : "normal",
-					} as React.CSSProperties
-				}>
-				{looped.map((s, i) => (
-					<SkillCard key={`${s.label}-${i}`} {...s} />
-				))}
-			</div>
 		</div>
 	);
 }
